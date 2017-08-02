@@ -12,11 +12,12 @@ def show_lib(request):
     return render_to_response("irinterface/lib_list.html",{"imgs":imgs})
 
 class ImageForm(forms.Form):
-    Selected_model = forms.CharField()
+    Select_model = forms.CharField()
     Image = forms.FileField()
 
 class ModelForm(forms.Form):
-    Model = forms.FileField()
+    Model_manage_file = forms.FileField()
+    Model_file = forms.FileField()
 
 def homepage(request):
     return render_to_response("irinterface/homepage.html")
@@ -28,11 +29,13 @@ def upload_model(request):
     if request.method == "POST":
         uf = ModelForm(request.POST,request.FILES)
         if uf.is_valid():
-            model_src = uf.cleaned_data['Model']
+            model_src = uf.cleaned_data['Model_manage_file']
+            weights_src = uf.cleaned_data['Model_file']
             pm = PdModel()
             pm.model_src = model_src
+            pm.weights_src = weights_src
             pm.save()
-            return HttpResponse(model_src.name+' upload succeed.')
+            return HttpResponse(model_src.name+' and '+ weights_src.name + ' upload succeed.')
     else:
         uf = ModelForm()
         return render(request,'irinterface/upload_model.html',{'uf':uf})
@@ -41,21 +44,27 @@ def upload_image(request):
     if request.method == "POST":
         uf = ImageForm(request.POST,request.FILES)
         if uf.is_valid():
-            model_name = uf.cleaned_data['Selected_model']
+            model_name = uf.cleaned_data['Select_model']
             headImg = uf.cleaned_data['Image']
             pd = PdImage()
             pd.model_name = model_name
             pd.image_src = headImg
-            pd.save()
-            src = model_name
+
             print('using media.upload_networks.'+model_name)
             try:
-                pkg = importlib.import_module('media.upload_networks.'+src)
+                pkg = importlib.import_module('media.upload_networks.'+model_name)
             except ImportError:
                 print(ImportError)
-                return HttpResponse('Import error.')
-            c1 = pkg.DLMOD()
+                return HttpResponse('Import error. Model not found.')
+
             path = settings.MEDIA_ROOT
+            try:
+                model = PdModel.objects.get(model_src='upload_networks/'+model_name+'.py')
+            except:
+                return HttpResponse('Model missing!')
+            pd.save()
+            model_path = path+'/'+str(model.weights_src)
+            c1 = pkg.DLMOD(model_path)
             result = c1.predict(path+'/img/'+headImg.name)
             result= result[0]
             pd.prediction = str(result)
