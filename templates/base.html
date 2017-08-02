@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <link href="/static/css/style.css" type="text/css" rel="stylesheet">
+    <title>
+        {% block title %}{% endblock %}
+    </title>
+</head>
+
+<body>
+  <ul id = "nav">
+    <li><a id="main" href="/">Image Classification System</a><ui>
+    <li><a href="/lib">Library</a></ui>
+    <li><a href="/upload">Upload</a><ui>
+  </ul>
+
+    {% block content %}
+    {% endblock %}
+    {% block footer %}
+    {% endblock %}
+</body>
+</html>

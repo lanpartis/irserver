@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %} library list {% endblock %}
+
+
+{% block content %}
+<div align="center" class="content">
+    {% for img in imgs %}
+
+    <div class="card">
+      <div id="cen" id = "box">
+        <div id = "cen" align="center">
+          <img text-align:center src='/media/{{ img.image_src }}'/>
+        </div>
+        <div id = "cen" align="center">'{{ img.model_name}}' model used </div>
+        <div align="center">{{ img.prediction}} </div>
+        <!-- <div align="center">{{ img.prediction2}} </div>
+        <div align="center">{{ img.prediction3}} </div>
+        <div align="center">{{ img.prediction4}} </div> -->
+      </div>
+    </div>
+
+    {% endfor %}
+</div>
+{% endblock %}

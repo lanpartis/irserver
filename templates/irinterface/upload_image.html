@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %} Upload image  {% endblock %}
+
+{% block content %}
+<div class="content">
+<form method="post" enctype="multipart/form-data" >
+{% csrf_token %}
+{{uf.as_p}}
+<input type="submit" value="ok" />
+</div>
+{% endblock %}
