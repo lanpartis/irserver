@@ -14,4 +14,4 @@ class PdImage(models.Model):
 
 class PdModel(models.Model):
     model_src = models.FileField(upload_to='upload_networks')
-    weights_src = models.FileField(upload_to='upload_networks')
+    # weights_src = models.FileField(upload_to='upload_networks')
