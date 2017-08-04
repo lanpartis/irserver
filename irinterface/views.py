@@ -7,8 +7,10 @@ from irserver import settings
 from irinterface.models import PdImage,PdModel
 import importlib
 from deep_learning_models.model_interface import DLMOD
+import json
 def show_lib(request):
     imgs = PdImage.objects.all()
+
     return render_to_response("irinterface/lib_list.html",{"imgs":imgs})
 
 class ImageForm(forms.Form):
@@ -66,3 +68,10 @@ def upload_image(request):
     else:
         uf = ImageForm()
     return render(request,'irinterface/upload_image.html',{'uf':uf})
+
+def documents(request):
+    return render_to_response('irinterface/document.html')
+def models(request):
+    models = PdModel.objects.all()
+
+    return render_to_response("irinterface/mod_list.html",{"mods":models})

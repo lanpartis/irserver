@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url,include
 from django.contrib import admin
-from irinterface.views import show_lib,upload,homepage,upload_image,upload_model
+from irinterface.views import show_lib,upload,homepage,upload_image,upload_model,models,documents
 from django.conf import settings
 from django.conf.urls.static import static
 admin.autodiscover()
@@ -26,6 +26,8 @@ urlpatterns = [
     url(r'^upload/$',upload),
     url(r'^upload/image$',upload_image),
     url(r'^upload/model$',upload_model),
+    url(r'^documents/$',documents),
+    url(r'^models/$',models),
 
     url(r'^$',homepage),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

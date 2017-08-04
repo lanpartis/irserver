@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %} library list {% endblock %}
+
+
+{% block content %}
+<div align="center" class="content">
+  <div align="center" id="model_list">
+  <div>models:</div>
+    {% for model in mods%}
+    <div align="center">{{model.model_src}}</div>
+    {% endfor %}
+  </div>
+
+</div>
+{% endblock %}
