@@ -332,14 +332,21 @@ kbd {
 
 <p>Hello there! This system allows you to upload your keras models and run them on the server. To use the server, please follow the instructions below.</p>
 
-<h2 id="toc_1">instruction 1</h2>
+<h2 id="toc_1">Model input</h2>
 
 <p>The system will preprocess the image you upload to (1,224,224,3), which means that the input dimension of you model must be (1,224,224,3).</p>
 
-<h2 id="toc_2">instruction 2</h2>
+<h2 id="toc_2">Model output</h2>
 
 <p>Since the system can only demostrate traind by image net, your out put shape should be (1,1000).</p>
 
+<h2 id="toc_3">Upload insruction</h2>
+
+<p>Use model.save() function to save the model and upload the .h5 file to the system.</p>
+
+<h2 id="toc_3">How to choose model</h2>
+
+<p>In image upload page, input the name of model to select a model. You can check avaliable models in Models </p>
 
 
 
